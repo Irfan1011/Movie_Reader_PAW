@@ -1,6 +1,6 @@
 <template>
     <v-main>
-        <h1 class="black--text text-h4 font-weight-medium mb-1 text-left">Create Article</h1>
+        <h1 class="black--text text-h4 font-weight-bold mb-1 text-left">Create Article</h1>
         <v-form v-model="valid">
             <v-card elevation="5" class="weight ml-15 mr-15 mt-10">
                 <v-row>

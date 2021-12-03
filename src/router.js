@@ -13,7 +13,7 @@ const router = new VueRouter({
     {
       path: "/",
       name: "admin",
-      component: importComponent("home"),
+      component: importComponent("DashboardLayout"),
       children: [
         //Dashboard
         {
