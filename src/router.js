@@ -1,5 +1,5 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
@@ -9,27 +9,69 @@ function importComponent(path) {
 
 const router = new VueRouter({
   mode: "history",
-  routes: [
-    {
+  routes: [{
       path: "/",
-      name: "admin",
       component: importComponent("DashboardLayout"),
       children: [
-        //Dashboard
+        //Home
         {
-          path: "/",
-          name: "Root",
-          component: importComponent("create"),
+          path: "/home",
+          name: "Home",
+          meta: {
+            title: 'Home'
+          },
+          component: importComponent("home"),
         },
-        //To Do List
+        // Profile
         {
-          path: "/gd",
-          name: "Guided",
-          component: importComponent("TodoList/List"),
+          path: "/profile",
+          name: "Profile",
+          meta: {
+            title: 'Profile'
+          },
+          component: importComponent("DataMaster/Profile"),
+        },
+        // Create Article
+        {
+          path: "/article/create",
+          name: "article-create",
+          meta: {
+            title: 'Create Article'
+          },
+          component: importComponent("Articles/create"),
+        },
+        // Show Article
+        {
+          path: "/article/show",
+          name: "article-show",
+          meta: {
+            title: 'Show Article'
+          },
+          component: importComponent("Articles/show"),
         },
       ],
     },
+
+    // Login
+    {
+      path: "/login",
+      name: "Login",
+      meta: {
+        title: 'Login'
+      },
+      component: importComponent("Login"),
+    },
+    {
+      path: '*',
+      redirect: '/'
+    }
   ],
+});
+
+// set judul
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
 });
 
 export default router;

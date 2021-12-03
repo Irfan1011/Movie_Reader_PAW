@@ -1,14 +1,43 @@
 <template>
-    <v-main>
+    <v-main class="list">
+        <h3 class="text-h3" font-weight-medium mb-1>Welcome!</h3>
+
+        <!-- <v-card>
+            <v-card-title>
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                ></v-text-field>
+
+                <v-spacer></v-spacer>
+
+                <v-btn color="success" dark @click="dialog = true"> Tambah </v-btn>
+                
+            </v-card-title>
+            <v-data-table
+                :headers="headers"
+                :items="courses"
+                :search="search"
+            >   
+                <template v-slot:[`item.actions`] = "{ item }">
+                    <v-btn icon small color="green" class="mr-2" @click="editHandler(item)"> <v-icon>mdi-pencil</v-icon> </v-btn>
+                    <v-btn icon small color="red" @click="deleteHandler(item.id)"> <v-icon>mdi-delete</v-icon> </v-btn>
+                </template>
+            </v-data-table>
+        </v-card> -->
+        
         <v-flex
             max-width="80%"
             align="left"
             class="mx-auto"
         >
- 
+           
             <v-container>
                 <v-row dense>
- 
+
                     <v-col
                     v-for="(item, i) in courses"
                     :key="i"
@@ -23,13 +52,13 @@
                             class="text-h5"
                             v-text="item.nama_kelas"
                             ></v-card-title>
- 
+
                             <v-card-subtitle class="text-left">
                                 {{ item.kode }}
                             </v-card-subtitle>
- 
+
                             <v-card-actions>
- 
+
                             <v-btn
                                 class="ml-2 mt-5"
                                 outlined
@@ -40,13 +69,13 @@
                             </v-btn>
                             </v-card-actions>
                         </div>
- 
+
                         <v-avatar
                             class="ma-3"
                             size="125"
                             tile
                         >
-                            <v-img src=img_url></v-img>
+                            <v-img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP._eiPTOPDhIdzMSO6092xdwHaHa%26pid%3DApi&f=1"></v-img>
                         </v-avatar>
                         </div>
                     </v-card>
@@ -54,6 +83,69 @@
                 </v-row>
             </v-container>
         </v-flex>
+
+        <!-- <v-flex d-flex>
+            <v-layout wrap>
+                <v-flex md4 v-for="item in courses" :key="item.id">
+                    <v-card class="card-container">
+                        {{ item.nama_kelas }}
+                        {{ item.kode }}
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-flex> -->
+
+        <v-dialog v-model="dialog" persistent max-width="600px">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">{{formTitle}} Course</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-text-field
+                            v-model="form.nama_kelas"
+                            label="Nama Kelas"
+                            required
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="form.kode"
+                            label="Kode"
+                            required
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="form.biaya_pendaftaran"
+                            label="Biaya Pendaftaran"
+                            required
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="form.kapasitas"
+                            label="Kapasitas"
+                            required
+                        ></v-text-field>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="cancel"> Cancel </v-btn>
+                    <v-btn color="blue darken-1" text @click="setForm"> Save </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialogConfirm" persistent max-width="400px">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Warning!</span>
+                </v-card-title>
+                <v-card-text>Anda yakin ingin menghapus kelas ini?</v-card-text>
+                <v-card-action>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="dialogConfirm = false"> Cancel </v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteData"> Delete </v-btn>
+                </v-card-action>
+            </v-card>
+        </v-dialog>
+        <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{error_message}}</v-snackbar>
     </v-main>
 </template>
 
