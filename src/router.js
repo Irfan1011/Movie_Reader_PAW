@@ -13,13 +13,13 @@ const router = new VueRouter({
     {
       path: "/",
       name: "admin",
-      component: importComponent("DashboardLayout"),
+      component: importComponent("home"),
       children: [
         //Dashboard
         {
           path: "/",
           name: "Root",
-          component: importComponent("Dashboard"),
+          component: importComponent("create"),
         },
         //To Do List
         {
