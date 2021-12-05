@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
@@ -9,7 +9,8 @@ function importComponent(path) {
 
 const router = new VueRouter({
   mode: "history",
-  routes: [{
+  routes: [
+    {
       path: "/",
       component: importComponent("DashboardLayout"),
       children: [
@@ -18,7 +19,7 @@ const router = new VueRouter({
           path: "/home",
           name: "Home",
           meta: {
-            title: 'Home'
+            title: "Home",
           },
           component: importComponent("home"),
         },
@@ -27,16 +28,25 @@ const router = new VueRouter({
           path: "/profile",
           name: "Profile",
           meta: {
-            title: 'Profile'
+            title: "Profile",
           },
           component: importComponent("DataMaster/Profile"),
+        },
+        // Profile Layout
+        {
+          path: "/profileLayout",
+          name: "Profile",
+          meta: {
+            title: "Profile",
+          },
+          component: importComponent("DataMaster/ProfileLayout"),
         },
         // Create Article
         {
           path: "/article/create",
           name: "article-create",
           meta: {
-            title: 'Create Article'
+            title: "Create Article",
           },
           component: importComponent("Articles/create"),
         },
@@ -45,7 +55,7 @@ const router = new VueRouter({
           path: "/article/show",
           name: "article-show",
           meta: {
-            title: 'Show Article'
+            title: "Show Article",
           },
           component: importComponent("Articles/show"),
         },
@@ -57,14 +67,14 @@ const router = new VueRouter({
       path: "/login",
       name: "Login",
       meta: {
-        title: 'Login'
+        title: "Login",
       },
       component: importComponent("Login"),
     },
     {
-      path: '*',
-      redirect: '/'
-    }
+      path: "*",
+      redirect: "/",
+    },
   ],
 });
 

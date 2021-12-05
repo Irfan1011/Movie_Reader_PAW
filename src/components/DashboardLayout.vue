@@ -46,8 +46,8 @@ export default {
         return {
             drawer: true,
             items: [
+                {title: "Profile", to: "/profileLayout"},
                 {title: "Home", to: "/home"},
-                {title: "Profile", to: "/profile"},
                 {title: "Create Article", to: "/article/create"},
             ],
         };
