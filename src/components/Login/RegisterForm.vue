@@ -10,11 +10,16 @@
                     </v-toolbar>
                     <v-card>
                         <v-card-text class="pt-4">
-                            <div>
+                            <div> 
                                 <v-form v-model="valid" ref="form">
-                                    <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
-                                    <v-text-field label="Password" v-model="password" type="password" min="8" :rules="passwordRules" counter required></v-text-field>
-                                    <v-text-field label="Nama" v-model="name" :rules="nameRules" required></v-text-field>
+                                     <v-text-field v-model="firstName" :rules="[rules.required]" label="First Name" maxlength="20" required></v-text-field>               
+                                        <v-text-field v-model="lastName" :rules="[rules.required]" label="Last Name" maxlength="20" required></v-text-field>
+                                        <v-text-field v-model="img_url" :rules="[rules.required]" label="Image Url" required></v-text-field>                                    
+                                        <v-text-field v-model="phone_number" :rules="[rules.required]" label="Phone number" required></v-text-field>
+                                        <v-text-field v-model="gender" :rules="[rules.required]" label="Gender" required></v-text-field>
+                                        <v-text-field v-model="username" :rules="[rules.required]" label="Username" required></v-text-field>
+                                        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+                                        <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>                                    
                                     <v-layout justify-end>
                                         <v-btn class="mr-2" color="green" @click="login"> Login </v-btn> <!-- btn go to register -->
                                         <v-btn class="mr-2" @click="submit" :class="{ 'grey darken-1 white--text' : valid, disabled: !valid }"> SUBMIT </v-btn>
