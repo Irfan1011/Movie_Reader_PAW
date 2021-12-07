@@ -12,12 +12,12 @@
                     <v-flex xs10>
                     <v-card-title primary-title>
                         <div class="mt-10 ml-5 text-h4 font-weight-bold">
-                            {First_name} {Last_name}
+                            {{profiles.first_name}} {{profiles.last_name}}
                         </div>
                     </v-card-title>
                     <v-card-title primary-title>
                         <div class="ml-5 text-h5">
-                            {Role}
+                            {{profiles.role}}
                         </div>
                     </v-card-title>
                     <v-dialog  persistent max-width="800">
@@ -90,12 +90,12 @@
                     <v-row>
                         <v-col>
                             <div class="text-md-body-1 black--text">
-                                {Email}
+                                {{profiles.email}}
                             </div>
                         </v-col>
                         <v-col>
                             <div class="text-md-body-1 black--text">
-                                {Phone}
+                                {{profiles.phone_number}}
                             </div>
                         </v-col>
                     </v-row>
@@ -110,21 +110,17 @@
                     lazy-src="https://picsum.photos/id/11/10/6"
                     max-height="250"
                     max-width="250"
-                    src="https://picsum.photos/id/11/500/300">
+                    src=item.imgUrl>
                     </v-img>
                     <v-flex xs10>
                     <v-card-title primary-title>
                         <div class="ml-5 text-h5 font-weight-bold">
-                            {Title}
+                            {{item.title}}
                         </div>
                     </v-card-title>
                     <v-card-text primary-title>
                         <div class="ml-5 text-md-body-1 text-justify">
-                            {Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                            when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                            It has survived not only five centuries, but also the leap into electronic typesetting, 
-                            remaining essentially unchanged.}
+                            {{item.body}}
                         </div>
 
                         <v-row>
@@ -150,81 +146,81 @@
                                         </v-card-text>
                                     </v-card>
                             </v-dialog>
-
-                            <v-dialog v-model="dialog" persistent max-width="1000">
-                                <template v-slot:activator="{ on, attrs }">
-                                <v-col v-bind="attrs" v-on="on">
-                                    <v-btn text router><v-icon color="grey darken-3">mdi-pencil</v-icon> Edit </v-btn> 
-                                </v-col>
-                                </template>
-                                <v-card>
-                                    <v-card-text>
-                                        <v-container>
-                                            <v-row>
-                                                <v-col cols="12" sm="6" md="6">
-                                                    <v-text-field
-                                                    v-model="form.img_url"
-                                                    counter="100"
-                                                    label="Image URL"
-                                                    required
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="5">
-                                                    <v-text-field
-                                                    v-model="form.title"
-                                                    counter="100"
-                                                    label="Title"
-                                                    required
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="11">
-                                                    <v-text-field
-                                                    v-model="form.body"
-                                                    counter="1000"
-                                                    label="Body"
-                                                    required
-                                                    ></v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-card-text>
-
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click="close">
-                                            Cancel
-                                        </v-btn>
-                                        <v-btn color="blue darken-1" text @click="update">
-                                            Save
-                                        </v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-                            
-                            <v-dialog persistent max-width="500">
-                                <template v-slot:activator="{ on, attrs }">
-                                <v-col v-bind="attrs" v-on="on">
-                                    <v-btn text router><v-icon color="red darken-4">mdi-delete</v-icon> Delete </v-btn> 
-                                </v-col>
-                                </template>
-                                <v-card>
-                                    <v-card-title class="headline">
-                                        Are you sure you want to delete this item?
-                                    </v-card-title>
-                                    
-                                    <v-card-actions>
-                                        <v-spacer/>
-                                            <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                                            <v-btn color="blue darken-1" text @click="deleteData">OK</v-btn>
-                                        <v-spacer/>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
                         </v-row>
                     </v-card-text>
                     </v-flex>
                 </v-layout>
             </v-card>
+
+            <v-dialog v-model="dialog" persistent max-width="1000">
+                <template v-slot:activator="{ on, attrs }">
+                <v-col v-bind="attrs" v-on="on">
+                    <v-btn text router><v-icon color="grey darken-3">mdi-pencil</v-icon> Edit </v-btn> 
+                </v-col>
+                </template>
+                <v-card>
+                    <v-card-text>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12" sm="6" md="6">
+                                    <v-text-field
+                                    v-model="form.img_url"
+                                    counter="100"
+                                    label="Image URL"
+                                    required
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="5">
+                                    <v-text-field
+                                    v-model="form.title"
+                                    counter="100"
+                                    label="Title"
+                                    required
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="11">
+                                    <v-text-field
+                                    v-model="form.body"
+                                    counter="1000"
+                                    label="Body"
+                                    required
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="close">
+                            Cancel
+                        </v-btn>
+                        <v-btn color="blue darken-1" text @click="update">
+                            Save
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            
+            <v-dialog persistent max-width="500">
+                <template v-slot:activator="{ on, attrs }">
+                <v-col v-bind="attrs" v-on="on">
+                    <v-btn text router><v-icon color="red darken-4">mdi-delete</v-icon> Delete </v-btn> 
+                </v-col>
+                </template>
+                <v-card>
+                    <v-card-title class="headline">
+                        Are you sure you want to delete this item?
+                    </v-card-title>
+                    
+                    <v-card-actions>
+                        <v-spacer/>
+                            <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                            <v-btn color="blue darken-1" text @click="deleteData">OK</v-btn>
+                        <v-spacer/>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-container>
     </v-main>
 </template>
@@ -245,19 +241,21 @@ export default {
             headers: [],
             article: new FormData,
             articles: [],
+            profile: new FormData,
+            profiles: [],
             form: {
                 img_url: null,
                 title: null,
                 body: null,
                 author: null,
             },
-            profile: {
-                img_url: null,
-                first_name: null,
-                last_name: null,
-                phone_number: null,
-                role: null,
-            },
+            // profile: {
+            //     img_url: null,
+            //     first_name: null,
+            //     last_name: null,
+            //     phone_number: null,
+            //     role: null,
+            // },
             role: ["Mahasiswa", "Dosen", "Art Designer"],
             deleteId: '',
             editId: '',
@@ -271,9 +269,24 @@ export default {
                 this.save();
             }
         },
-        // Read data
+        loadProfilePage() {
+            this.readData();
+            this.readProfile();
+        },
+        // Read data artikel
         readData() {
-            var url = this.$api + '/article';
+            var url = this.$api + '/article/author/' + localStorage.getItem('id');
+            this.$http.get(url, {
+                headers: {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+                }
+            }).then(response => {
+                this.articles = response.data.data;
+            });
+        },
+        // Read data profil
+        readDataProfil() {
+            var url = this.$api + '/user/' + localStorage.getItem('id');
             this.$http.get(url, {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('token'),
@@ -411,7 +424,7 @@ export default {
         },
     },
     mounted: function() {
-        this.readData();
+        this.loadProfilePage();
     },
 };
 </script>
