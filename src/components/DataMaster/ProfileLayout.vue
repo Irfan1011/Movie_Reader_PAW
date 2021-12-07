@@ -90,12 +90,12 @@
                     <v-row>
                         <v-col>
                             <div class="text-md-body-1 black--text">
-                                {{profiles.email}}
+                                <p class="font-weight-bold">Email</p> {{profiles.email}}
                             </div>
                         </v-col>
                         <v-col>
                             <div class="text-md-body-1 black--text">
-                                {{profiles.phone_number}}
+                                <p class="font-weight-bold">Phone Number</p> {{profiles.phone_number}}
                             </div>
                         </v-col>
                     </v-row>
@@ -116,8 +116,8 @@
                             <v-layout>
                                 <v-img
                                 lazy-src="https://picsum.photos/id/11/10/6"
-                                max-height="250"
-                                max-width="250"
+                                height="250"
+                                width="250"
                                 v-bind:src="item.img_url">
                                 </v-img>
                                 <v-flex xs10>
@@ -130,30 +130,9 @@
                                     <div class="ml-5 text-md-body-1 text-justify">
                                         {{item.body.substr(0,700)}}...
                                     </div>
-
-                                    <v-row>
-                                        <v-spacer/><v-spacer/>
-                                        <v-spacer/><v-spacer/>
-                                        <v-spacer/><v-spacer/>
-                                        <v-dialog width="600px">
-                                                <template v-slot:activator="{ on, attrs }">
-                                                <v-col v-bind="attrs" v-on="on">
-                                                    <v-btn text router><v-icon color="light-green darken-2">mdi-book</v-icon> Read-Now </v-btn> 
-                                                </v-col>
-                                                </template>
-                                                <v-card>
-                                                    <v-card-title>
-                                                        <span class="text-h5">Use Google's location service?</span>
-                                                    </v-card-title>
-                                                    <v-card-text class="text-justify">
-                                                        {Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                                        It has survived not only five centuries, but also the leap into electronic typesetting, 
-                                                        remaining essentially unchanged.}
-                                                    </v-card-text>
-                                                </v-card>
-                                        </v-dialog>
+                                    <v-row class="mt-5">
+                                        <v-spacer/>
+                                        <v-btn text router @click="startReadingArticle(item.id)"><v-icon color="light-green darken-2">mdi-book</v-icon> Read-Now </v-btn> 
                                     </v-row>
                                 </v-card-text>
                                 </v-flex>
@@ -304,6 +283,13 @@ export default {
                 }
             }).then(response => {
                 this.profiles = response.data.data;
+            });
+        },
+        //baca artikel
+        startReadingArticle($id) {
+            localStorage.setItem('article_id', $id);
+            this.$router.push({
+                name: 'article-show',
             });
         },
         // Simpan data article
