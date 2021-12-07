@@ -25,28 +25,27 @@
                             ></v-card-title>
  
                             <v-card-subtitle class="text-left">
-                                {{ item.author }}
+                                Written by : {{ item.author }}
                             </v-card-subtitle>
- 
                             <v-card-actions>
  
-                            <v-btn
-                                class="ml-2 mt-5"
-                                outlined
-                                rounded
-                                small
-                            >
-                                READ NOW
-                            </v-btn>
+                                <v-btn
+                                    class="ml-2 mt-5"
+                                    outlined
+                                    rounded
+                                    small
+                                >
+                                    READ NOW
+                                </v-btn>
                             </v-card-actions>
                         </div>
  
                         <v-avatar
                             class="ma-3"
-                            size="125"
+                            size="500"
                             tile
                         >
-                            <v-img src=img_url></v-img>
+                            <v-img v-bind:src="item.img_url"></v-img>
                         </v-avatar>
                         </div>
                     </v-card>
