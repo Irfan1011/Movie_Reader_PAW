@@ -57,7 +57,7 @@
              text-align: left;
              color: #666;
              border-bottom: 1px solid #f6f6f6;
-        
+        }
     }
     
 </style>
