@@ -7,7 +7,7 @@
                     lazy-src="https://picsum.photos/id/11/10/6"
                     max-height="300"
                     max-width="400"
-                    src="https://picsum.photos/id/11/500/300">
+                    v-bind:src="profiles.img_url">
                     </v-img>
                     <v-flex xs10>
                     <v-card-title primary-title>
@@ -104,53 +104,64 @@
                 <h2 class="font-weight-bold black--text mt-5">Movies: </h2>
             </v-card-title>
             
-            <v-card elevation="5">
-                <v-layout>
-                    <v-img
-                    lazy-src="https://picsum.photos/id/11/10/6"
-                    max-height="250"
-                    max-width="250"
-                    src=item.imgUrl>
-                    </v-img>
-                    <v-flex xs10>
-                    <v-card-title primary-title>
-                        <div class="ml-5 text-h5 font-weight-bold">
-                            {{item.title}}
-                        </div>
-                    </v-card-title>
-                    <v-card-text primary-title>
-                        <div class="ml-5 text-md-body-1 text-justify">
-                            {{item.body}}
-                        </div>
+            <v-container>
+                <v-row dense>
+ 
+                    <v-col
+                    v-for="(item, i) in articles"
+                    :key="i"
+                    cols="12"
+                    >
+                        <v-card elevation="5">
+                            <v-layout>
+                                <v-img
+                                lazy-src="https://picsum.photos/id/11/10/6"
+                                max-height="250"
+                                max-width="250"
+                                v-bind:src="item.img_url">
+                                </v-img>
+                                <v-flex xs10>
+                                <v-card-title primary-title>
+                                    <div class="ml-5 text-h5 font-weight-bold">
+                                        {{item.title}}
+                                    </div>
+                                </v-card-title>
+                                <v-card-text primary-title>
+                                    <div class="ml-5 text-md-body-1 text-justify">
+                                        {{item.body.substr(0,700)}}...
+                                    </div>
 
-                        <v-row>
-                            <v-spacer/><v-spacer/>
-                            <v-spacer/><v-spacer/>
-                            <v-spacer/><v-spacer/>
-                            <v-dialog width="600px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                    <v-col v-bind="attrs" v-on="on">
-                                        <v-btn text router><v-icon color="light-green darken-2">mdi-book</v-icon> Read-Now </v-btn> 
-                                    </v-col>
-                                    </template>
-                                    <v-card>
-                                        <v-card-title>
-                                            <span class="text-h5">Use Google's location service?</span>
-                                        </v-card-title>
-                                        <v-card-text class="text-justify">
-                                            {Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                            when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                            It has survived not only five centuries, but also the leap into electronic typesetting, 
-                                            remaining essentially unchanged.}
-                                        </v-card-text>
-                                    </v-card>
-                            </v-dialog>
-                        </v-row>
-                    </v-card-text>
-                    </v-flex>
-                </v-layout>
-            </v-card>
+                                    <v-row>
+                                        <v-spacer/><v-spacer/>
+                                        <v-spacer/><v-spacer/>
+                                        <v-spacer/><v-spacer/>
+                                        <v-dialog width="600px">
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-col v-bind="attrs" v-on="on">
+                                                    <v-btn text router><v-icon color="light-green darken-2">mdi-book</v-icon> Read-Now </v-btn> 
+                                                </v-col>
+                                                </template>
+                                                <v-card>
+                                                    <v-card-title>
+                                                        <span class="text-h5">Use Google's location service?</span>
+                                                    </v-card-title>
+                                                    <v-card-text class="text-justify">
+                                                        {Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                                        It has survived not only five centuries, but also the leap into electronic typesetting, 
+                                                        remaining essentially unchanged.}
+                                                    </v-card-text>
+                                                </v-card>
+                                        </v-dialog>
+                                    </v-row>
+                                </v-card-text>
+                                </v-flex>
+                            </v-layout>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
 
             <v-dialog v-model="dialog" persistent max-width="1000">
                 <template v-slot:activator="{ on, attrs }">
@@ -271,7 +282,7 @@ export default {
         },
         loadProfilePage() {
             this.readData();
-            this.readProfile();
+            this.readDataProfil();
         },
         // Read data artikel
         readData() {
@@ -292,7 +303,7 @@ export default {
                     'Authorization' : 'Bearer ' + localStorage.getItem('token'),
                 }
             }).then(response => {
-                this.articles = response.data.data;
+                this.profiles = response.data.data;
             });
         },
         // Simpan data article
