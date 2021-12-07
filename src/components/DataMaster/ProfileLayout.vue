@@ -5,8 +5,8 @@
                 <v-layout>
                     <v-img
                     lazy-src="https://picsum.photos/id/11/10/6"
-                    max-height="300"
-                    max-width="400"
+                    height="300"
+                    width="400"
                     v-bind:src="profiles.img_url">
                     </v-img>
                     <v-flex xs10>
@@ -104,6 +104,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
+                    <v-btn color="RED" text @click="deleteHandler(profiles.id)"> DELETE PROFILE </v-btn>
+                    <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="cancel"> Cancel </v-btn>
                     <v-btn color="blue darken-1" text @click="setForm"> Save </v-btn>
                 </v-card-actions>
@@ -115,7 +117,7 @@
                 <v-card-title>
                     <span class="headline">Warning!</span>
                 </v-card-title>
-                <v-card-text>Anda yakin ingin menghapus artikel ini?</v-card-text>
+                <v-card-text>Anda yakin ingin menghapus profil anda sendiri?</v-card-text>
                 <v-card-action>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="dialogConfirm = false"> Cancel </v-btn>
@@ -231,7 +233,7 @@ export default {
         },
 
         deleteData() {
-            var url = this.$api + '/article/' + this.deleteId;
+            var url = this.$api + '/user/' + this.deleteId;
             this.load = true;
             this.$http.delete(url, {
                 headers: {
