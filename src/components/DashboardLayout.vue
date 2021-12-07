@@ -75,6 +75,9 @@ export default {
                 this.snackbar = true;
                 localStorage.removeItem('token');
                 this.load = false;
+                this.$router.push({
+                    name: 'Dashboard',
+                });
             })
     },
   }
