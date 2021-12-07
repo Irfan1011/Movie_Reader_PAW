@@ -94,11 +94,12 @@
                 </v-card-title>
                 <v-card-text>
                     <v-container>
-                        <v-text-field v-model="first_name" label="First Name" maxlength="20" required></v-text-field>               
-                        <v-text-field v-model="last_name" label="Last Name" maxlength="50" required></v-text-field>
-                        <v-text-field v-model="img_url" label="Image Url" required></v-text-field>                                    
-                        <v-text-field v-model="phone_number" label="Phone number" required></v-text-field>
-                        <v-text-field v-model="gender" label="Gender" required></v-text-field>
+                        <v-text-field v-model="form.first_name" label="First Name" maxlength="20" required></v-text-field>               
+                        <v-text-field v-model="form.last_name" label="Last Name" maxlength="50" required></v-text-field>
+                        <v-text-field v-model="form.img_url" label="Image Url" required></v-text-field>                                    
+                        <v-text-field v-model="form.phone_number" label="Phone number" required></v-text-field>
+                        <v-text-field v-model="form.gender" label="Gender" required></v-text-field>
+                        <v-text-field v-model="form.role" label="Role" required></v-text-field>
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
@@ -150,14 +151,6 @@ export default {
                 phone_number: null,
                 gender: null,
             },
-            // profile: {
-            //     img_url: null,
-            //     first_name: null,
-            //     last_name: null,
-            //     phone_number: null,
-            //     role: null,
-            // },
-            role: ["Mahasiswa", "Dosen", "Art Designer"],
             deleteId: '',
             editId: '',
         };
@@ -203,44 +196,18 @@ export default {
                 name: 'article-show',
             });
         },
-        // Simpan data article
-        save() {
-            this.article.append('img_url', this.form.img_url);
-            this.article.append('title', this.form.title);
-            this.article.append('body', this.form.body);
-            this.article.append('author', localStorage.getItem('active_user'));
-
-            var url = this.$api + '/article/';
-            this.load = true;
-            this.$http.post(url, this.article, {
-                headers: {
-                    'Authorization' : 'Bearer ' + localStorage.getItem('token'),
-                }
-            }).then(response => {
-                this.error_message = response.data.message;
-                this.color = "green";
-                this.snackbar = true;
-                this.load = true;
-                this.close();
-                this.readData();
-                this.resetForm();
-            }).catch(error => {
-                this.error_message = error.response.data.message;
-                this.color = "red";
-                this.snackbar = true;
-                this.load = false;
-            });
-        },
 
         update() {
             let newData = {
+                first_name: this.form.first_name,
+                last_name: this.form.last_name,
                 img_url: this.form.img_url,
-                title: this.form.title,
-                body: this.form.body,
-                author: localStorage.getItem('active_user')
+                phone_number: this.form.phone_number,
+                gender: this.form.gender,
+                role: this.form.role
             };
 
-            var url = this.$api + '/article/' + this.editId;
+            var url = this.$api + '/user/' + this.editId;
             this.load = true;
             this.$http.put(url, newData, {
                 headers: {
@@ -252,7 +219,7 @@ export default {
                 this.snackbar = true;
                 this.load = true;
                 this.close();
-                this.readData();
+                this.loadProfilePage();
                 this.resetForm();
                 this.inputType = 'Tambah';
             }).catch(error => {
@@ -295,6 +262,7 @@ export default {
             this.form.img_url = item.img_url;
             this.form.phone_number = item.phone_number;
             this.form.gender = item.gender;
+            this.form.role = item.role;
             this.dialog = true;
         },
 
@@ -328,10 +296,12 @@ export default {
 
         resetForm() {
             this.form = {
-                nama_kelas: null,
-                kode: null,
-                biaya_pendaftaran: null,
-                kapasitas: null,
+                    first_name: null,
+                    last_name: null,
+                    img_url: null,
+                    phone_number: null,
+                    gender: null,
+                    role: null,
             };
         },
     },
