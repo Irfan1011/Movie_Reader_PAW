@@ -12,8 +12,8 @@
                         <v-card-text class="pt-4">
                             <div> 
                                 <v-form v-model="valid" ref="form">
-                                     <v-text-field v-model="firstName" label="First Name" maxlength="20" required></v-text-field>               
-                                        <v-text-field v-model="lastName" label="Last Name" maxlength="20" required></v-text-field>
+                                        <v-text-field v-model="first_name" label="First Name" maxlength="20" required></v-text-field>               
+                                        <v-text-field v-model="last_name" label="Last Name" maxlength="50" required></v-text-field>
                                         <v-text-field v-model="img_url" label="Image Url" required></v-text-field>                                    
                                         <v-text-field v-model="phone_number" label="Phone number" required></v-text-field>
                                         <v-text-field v-model="gender" label="Gender" required></v-text-field>
@@ -81,7 +81,12 @@ export default {
                 this.load = true;
 
                 this.$http.post(this.$api + '/register', {
-                    name: this.name,
+                    first_name: this.first_name,
+                    last_name: this.last_name,
+                    img_url: this.img_url,
+                    phone_number: this.phone_number,
+                    gender: this.gender,
+                    username: this.username,
                     email: this.email,
                     password: this.password
                 }).then(response => {
