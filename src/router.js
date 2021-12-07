@@ -68,7 +68,7 @@ const router = new VueRouter({
       meta: {
         title: "Login",
       },
-      component: importComponent("LoginForm"),
+      component: importComponent("Login/LoginForm"),
     },
     // Register
     {
@@ -77,7 +77,7 @@ const router = new VueRouter({
       meta: {
         title: "Register",
       },
-      component: importComponent("RegisterForm"),
+      component: importComponent("Login/RegisterForm"),
     },
     // Dashboard
     {
