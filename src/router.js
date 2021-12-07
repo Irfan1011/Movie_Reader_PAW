@@ -79,9 +79,18 @@ const router = new VueRouter({
       },
       component: importComponent("RegisterForm"),
     },
+    // Dashboard
+    {
+      path: "/dashboard",
+      name: "Dashboard",
+      meta: {
+        title: "Dashboard",
+      },
+      component: importComponent("Dashboard"),
+    },
     {
       path: "*",
-      redirect: "/login",
+      redirect: "/dashboard",
     },
   ],
 });
