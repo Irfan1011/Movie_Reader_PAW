@@ -29,7 +29,7 @@
             <VSpacer />
             <v-toolbar-items>
                 <!-- Tombol Logout -->
-                <v-btn text router><v-icon>mdi-power</v-icon> Logout </v-btn> 
+                <v-btn text router @click="logout"><v-icon>mdi-power</v-icon> Logout </v-btn> 
             </v-toolbar-items>
         </v-app-bar>
 
@@ -52,6 +52,32 @@ export default {
             ],
         };
     },
+    methods: {
+        logout() {
+            this.load = true;
+
+            this.$http.post(this.$api + '/logout', {
+                headers: {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+                }
+            }).then(response => {
+                this.error_message = response.data.message;
+                this.color = "green";
+                this.snackbar = true;
+                this.load = false;
+                this.clear();
+                this.$router.push({
+                    name: 'Dashboard',
+                });
+            }).catch(error => {
+                this.error_message = error.response.data.message;
+                this.color = "red";
+                this.snackbar = true;
+                localStorage.removeItem('token');
+                this.load = false;
+            })
+    },
+  }
 };
 </script>
 
