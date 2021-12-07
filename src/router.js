@@ -58,6 +58,15 @@ const router = new VueRouter({
           },
           component: importComponent("Articles/show"),
         },
+        // Edit Article
+        {
+          path: "/article/edit",
+          name: "article-edit",
+          meta: {
+            title: "Edit Article",
+          },
+          component: importComponent("Articles/edit"),
+        }
       ],
     },
 
