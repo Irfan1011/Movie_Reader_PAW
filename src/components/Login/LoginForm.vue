@@ -1,7 +1,7 @@
 <template>
-    <main>
-        <v-container fluid fill-height class="posisinya">
-            <v-layout flex align-center justify-center>
+    <v-img src="./../../assets/login_back.png" dark aspect-ratio="2.175">
+        <v-container fluid fill-height class="posisinya bg-img">
+            <v-layout flex align-center justify-center >
                 <v-flex xs12 sm6 elevation-6>
                     <v-toolbar class="green lighten-2">
                         <v-toolbar-title class="white--text">
@@ -29,7 +29,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </main>
+    </v-img>
 </template>
 
 <style>
@@ -38,6 +38,11 @@
         top: 20px;
         left: 0;
         right: 0;
+    }
+    .bg-img{
+        background-image: url('./../../assets/login_back.png') no-repeat center center fixed !important;
+        background-size: cover !important;
+        height:100vh;
     }
 </style>
 
@@ -73,6 +78,8 @@ export default {
                 }).then(response => {
                     //simpan user
                     localStorage.setItem('id', response.data.user.id);
+                    localStorage.setItem('au_first_name', response.data.user.first_name);
+                    localStorage.setItem('au_last_name', response.data.user.last_name);
                     localStorage.setItem('token', response.data.access_token);
                     this.error_message = response.data.message;
                     this.color = "green";
@@ -80,7 +87,7 @@ export default {
                     this.load = false;
                     this.clear();
                     this.$router.push({
-                        name: 'Courses',
+                        name: 'Home',
                     });
                 }).catch(error => {
                     this.error_message = error.response.data.message;
@@ -104,3 +111,4 @@ export default {
     },
 };
 </script>
+
