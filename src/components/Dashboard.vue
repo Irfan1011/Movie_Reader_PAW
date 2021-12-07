@@ -4,12 +4,12 @@
       <h1 class="text-center">Movie Reader</h1>
       <VSpacer />
       <v-toolbar-items>
-        <v-btn text router> Login </v-btn> 
-        <v-btn text router> Register </v-btn> 
+        <v-btn text router @click="login"> Login </v-btn> 
+        <v-btn text router @click="register"> Register </v-btn> 
       </v-toolbar-items>
     </v-app-bar>
     
-    <v-carousel height="700" cycle hide-delimiters>
+    <v-carousel height="100vh" cycle hide-delimiters>
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -47,5 +47,18 @@ export default {
       ],
     }
   },
+  methods: {
+    login() {
+      this.$router.push({
+          name: 'Login',
+      });
+    },
+        
+    register() {
+      this.$router.push({
+          name: 'Register',
+      });
+    }
+  }
 };
 </script>
