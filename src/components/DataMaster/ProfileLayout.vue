@@ -1,7 +1,7 @@
 <template>
     <v-main>
         <v-container>
-            <v-card elevation="5">
+            <v-card elevation="5" style="position:relative !important">
                 <v-layout>
                     <v-img
                     lazy-src="https://picsum.photos/id/11/10/6"
@@ -10,77 +10,19 @@
                     v-bind:src="profiles.img_url">
                     </v-img>
                     <v-flex xs10>
-                    <v-card-title primary-title>
-                        <div class="mt-10 ml-5 text-h4 font-weight-bold">
-                            {{profiles.first_name}} {{profiles.last_name}}
-                        </div>
-                    </v-card-title>
-                    <v-card-title primary-title>
-                        <div class="ml-5 text-h5">
-                            {{profiles.role}}
-                        </div>
-                    </v-card-title>
-                    <v-dialog  persistent max-width="800">
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-col align="right" v-bind="attrs" v-on="on">
-                            <v-btn text router><v-icon color="blue-grey darken-1">mdi-pencil</v-icon> Edit </v-btn> 
-                        </v-col>
-                        </template>
-                        <v-card>
-                            <v-card-text>
-                                <v-container>
-                                    <v-col cols="12" sm="6" md="12">
-                                        <v-text-field
-                                        v-model="profile.img_url"
-                                        counter="100"
-                                        label="Image URL"
-                                        required
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="12">
-                                        <v-text-field
-                                        v-model="profile.first_name"
-                                        counter="100"
-                                        label="First Name"
-                                        required
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="12">
-                                        <v-text-field
-                                        v-model="profile.last_name"
-                                        counter="100"
-                                        label="Last Name"
-                                        required
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="12">
-                                        <v-text-field
-                                        v-model="profile.phone_number"
-                                        counter="100"
-                                        label="Phone Number"
-                                        required
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="12">
-                                        <v-select
-                                        v-model="profile.role"
-                                        :items="role"
-                                        label="Role"
-                                        required
-                                        ></v-select>
-                                    </v-col>
-                                </v-container>
-
-                                <v-card-actions>
-                                    <v-spacer/>
-                                        <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                                        <v-btn color="blue darken-1" text @click="update">Save</v-btn>
-                                </v-card-actions>
-                            </v-card-text>
-                        </v-card>
-                    </v-dialog>
+                        <v-card-title primary-title>
+                            <div class="mt-10 ml-5 text-h4 font-weight-bold">
+                                {{profiles.first_name}} {{profiles.last_name}}
+                            </div>
+                        </v-card-title>
+                        <v-card-title primary-title>
+                            <div class="ml-5 text-h5">
+                                {{profiles.role}}
+                            </div>
+                        </v-card-title>
                     </v-flex>
                 </v-layout>
+                <v-btn icon small color="green" style="position:absolute; right:60px; bottom:5px;" @click="editHandler(profiles)"> <v-icon>mdi-pencil</v-icon> Edit Profile </v-btn>
             </v-card>
 
             <v-divider class="mt-10"/>
@@ -132,6 +74,8 @@
                                     </div>
                                     <v-row class="mt-5">
                                         <v-spacer/>
+                                        <v-btn icon small color="green" class="mr-2" @click="editArticle(item.id)"> <v-icon>mdi-pencil</v-icon> </v-btn>
+                                        <v-btn icon small color="red" @click="deleteHandler(item.id)"> <v-icon>mdi-delete</v-icon> </v-btn>
                                         <v-btn text router @click="startReadingArticle(item.id)"><v-icon color="light-green darken-2">mdi-book</v-icon> Read-Now </v-btn> 
                                     </v-row>
                                 </v-card-text>
@@ -142,6 +86,43 @@
                 </v-row>
             </v-container>
         </v-container>
+
+        <v-dialog v-model="dialog" persistent max-width="600px">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit Profile</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-text-field v-model="first_name" label="First Name" maxlength="20" required></v-text-field>               
+                        <v-text-field v-model="last_name" label="Last Name" maxlength="50" required></v-text-field>
+                        <v-text-field v-model="img_url" label="Image Url" required></v-text-field>                                    
+                        <v-text-field v-model="phone_number" label="Phone number" required></v-text-field>
+                        <v-text-field v-model="gender" label="Gender" required></v-text-field>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="cancel"> Cancel </v-btn>
+                    <v-btn color="blue darken-1" text @click="setForm"> Save </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialogConfirm" persistent max-width="400px">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Warning!</span>
+                </v-card-title>
+                <v-card-text>Anda yakin ingin menghapus artikel ini?</v-card-text>
+                <v-card-action>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="dialogConfirm = false"> Cancel </v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteData"> Delete </v-btn>
+                </v-card-action>
+            </v-card>
+        </v-dialog>
+        <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{error_message}}</v-snackbar>
     </v-main>
 </template>
 
@@ -158,16 +139,16 @@ export default {
             search: null,
             dialog: false,
             dialogConfirm: false,
-            headers: [],
             article: new FormData,
             articles: [],
             profile: new FormData,
             profiles: [],
             form: {
+                first_name: null,
+                last_name: null,
                 img_url: null,
-                title: null,
-                body: null,
-                author: null,
+                phone_number: null,
+                gender: null,
             },
             // profile: {
             //     img_url: null,
@@ -309,11 +290,20 @@ export default {
         editHandler(item) {
             this.inputType = 'Ubah';
             this.editId = item.id;
-            this.form.nama_kelas = item.nama_kelas;
-            this.form.kode = item.kode;
-            this.form.biaya_pendaftaran = item.biaya_pendaftaran;
-            this.form.kapasitas = item.kapasitas;
+            this.form.first_name = item.first_name;
+            this.form.last_name = item.last_name;
+            this.form.img_url = item.img_url;
+            this.form.phone_number = item.phone_number;
+            this.form.gender = item.gender;
             this.dialog = true;
+        },
+
+        //edit artikel
+        editArticle($id) {
+            localStorage.setItem('article_id', $id);
+            this.$router.push({
+                name: 'article-edit',
+            });
         },
 
         deleteHandler(id) {
