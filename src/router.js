@@ -22,15 +22,15 @@ const router = new VueRouter({
           },
           component: importComponent("home"),
         },
-        // Profile
-        {
-          path: "/profile",
-          name: "Profile",
-          meta: {
-            title: "Profile",
-          },
-          component: importComponent("DataMaster/Profile"),
-        },
+        // Profile unused
+        // {
+        //   path: "/profile",
+        //   name: "Profile",
+        //   meta: {
+        //     title: "Profile",
+        //   },
+        //   component: importComponent("DataMaster/Profile"),
+        // },
         // Profile Layout
         {
           path: "/profileLayout",
