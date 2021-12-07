@@ -52,7 +52,7 @@
              overflow: hidden;
              text-overflow: ellipsis;
              white-space: nowrap;
-             font-size: px2rem(24);
+             font-size: 24px;
              box-sizing: border-box;
              text-align: left;
              color: #666;
