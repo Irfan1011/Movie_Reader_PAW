@@ -3,8 +3,8 @@
         <v-container fluid fill-height class="posisinya">
             <v-layout flex align-center justify-center>
                 <v-flex xs12 sm6 elevation-6>
-                    <v-toolbar class="grey darken-3">
-                        <v-toolbar-title class="grey--text">
+                    <v-toolbar class="blue lighten-2">
+                        <v-toolbar-title class="white--text">
                             <h1>Register Dulu Bro</h1>
                         </v-toolbar-title>
                     </v-toolbar>
@@ -21,9 +21,11 @@
                                         <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
                                         <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[min=8]" :type="show1? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>                                    
                                     <v-layout justify-end>
-                                        <v-btn class="mr-2" color="green" @click="login"> Login </v-btn> <!-- btn go to register -->
-                                        <v-btn class="mr-2" @click="submit" :class="{ 'grey darken-1 white--text' : valid, disabled: !valid }"> SUBMIT </v-btn>
-                                        <v-btn @click="clear" class="grey darken-1 white--text"> Clear </v-btn>
+                                        <v-btn text disabled class="">Sudah punya akun?</v-btn>
+                                        <v-btn class="mr-2" color="blue" text @click="login"> Login </v-btn> <!-- btn go to register -->
+                                        <v-spacer></v-spacer>
+                                        <v-btn class="mr-2" @click="submit" :class="{ 'green lighten-1 white--text' : valid, disabled: !valid }"> Submit </v-btn>
+                                        <v-btn @click="clear" class="white black--text"> Clear </v-btn>
                                     </v-layout>
                                 </v-form>
                             </div>
@@ -37,10 +39,6 @@
 </template>
 
 <style>
-    @import url("https://fonts.googleapis.com/css?family=Jolly%20Lodger");
-    .grey--text{
-        font-family: "Jolly Lodger";
-    }
 
     .posisinya{
         position: absolute;
