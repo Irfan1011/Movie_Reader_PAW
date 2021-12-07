@@ -1,31 +1,4 @@
 <template>
-    <v-card>
-        <v-card-title>Login Form</v-card-title>
-        <v-card-text>
-            <v-form>
-                <v-text-field 
-                    label="Email" 
-                    v-model="email"
-                    :rules="[v => !!v || 'Email is required']" 
-                    required
-                ></v-text-field>
-                <v-text-field 
-                    label="password" 
-                    v-model="password"
-                    type="password"
-                    :rules="[v => !!v || 'Password is required']" 
-                    required
-                ></v-text-field>
-            </v-form>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn color="primary" @click="submit">Login</v-btn>
-        </v-card-actions>
-    </v-card>
-</template>
-
-<!-- DARI GUIDED
-<template>
     <main>
         <v-container fluid fill-height class="posisinya">
             <v-layout flex align-center justify-center>
@@ -40,9 +13,9 @@
                             <div>
                                 <v-form v-model="valid" ref="form">
                                     <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
-                                    <v-text-field label="Password" v-model="password" type="password" min="8" :rules="passwordRules" counter required></v-text-field>
+                                    <v-text-field label="Password" v-model="password" type="password" min="6" :rules="passwordRules" counter required></v-text-field>
                                     <v-layout justify-end>
-                                        <v-btn class="mr-2" color="blue" @click="register"> Register </v-btn> 
+                                        <v-btn class="mr-2" color="blue" @click="register"> Register </v-btn> <!-- btn go to register -->
                                         <v-btn class="mr-2" @click="submit" :class="{ 'grey darken-1 white--text' : valid, disabled: !valid }"> Go </v-btn>
                                         <v-btn @click="clear" class="grey darken-1 white--text"> Clear </v-btn>
                                     </v-layout>
@@ -56,7 +29,6 @@
         </v-container>
     </main>
 </template>
- -->
 
 <style>
     @import url("https://fonts.googleapis.com/css?family=Jolly%20Lodger");
