@@ -9,9 +9,8 @@ function importComponent(path) {
 
 const router = new VueRouter({
   mode: "history",
-  routes: [
-    {
-      path: "/",
+  routes: [{
+      path: "/main",
       component: importComponent("DashboardLayout"),
       children: [
         //Home
@@ -69,11 +68,20 @@ const router = new VueRouter({
       meta: {
         title: "Login",
       },
-      component: importComponent("Login"),
+      component: importComponent("LoginForm"),
+    },
+    // Register
+    {
+      path: "/register",
+      name: "Register",
+      meta: {
+        title: "Register",
+      },
+      component: importComponent("RegisterForm"),
     },
     {
       path: "*",
-      redirect: "/",
+      redirect: "/login",
     },
   ],
 });
