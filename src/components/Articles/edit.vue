@@ -85,7 +85,7 @@ export default {
                 this.snackbar = true;
                 this.load = true;
                 this.$router.push({
-                    name: 'Home',
+                    name: 'Profile',
                 });
             }).catch(error => {
                 this.error_message = error.response.data.message;
