@@ -92,30 +92,6 @@ export default {
                 this.load = false;
             });
         },
-        
-        close() {
-            this.dialog = false;
-            this.inputType = 'Tambah';
-            this.dialogConfirm = false;
-            this.readData();
-        },
-
-        cancel() {
-            this.resetForm();
-            this.readData();
-            this.dialog = false;
-            this.dialogConfirm = false;
-            this.inputType = 'Tambah';
-        },
-
-        resetForm() {
-            this.form = {
-                nama_kelas: null,
-                kode: null,
-                biaya_pendaftaran: null,
-                kapasitas: null,
-            };
-        },
     },
     computed: {
         formTitle() {
