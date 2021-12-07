@@ -34,6 +34,7 @@
                                     outlined
                                     rounded
                                     small
+                                    @click="startReadingArticle(item.id)"
                                 >
                                     READ NOW
                                 </v-btn>
@@ -58,7 +59,7 @@
 
 <script>
 export default {
-    name: "List",
+    name: "Home",
     data() {
         return {
             inputType: 'Tambah',
@@ -118,6 +119,12 @@ export default {
                 }
             }).then(response => {
                 this.articles = response.data.data;
+            });
+        },
+        startReadingArticle($id) {
+            localStorage.setItem('article_id', $id);
+            this.$router.push({
+                name: 'article-show',
             });
         },
         // // Simpan data course
