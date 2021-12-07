@@ -48,16 +48,16 @@
     }
     .content{
         background: #032859;
-        .content-item{
-             overflow: hidden;
-             text-overflow: ellipsis;
-             white-space: nowrap;
-             font-size: 24px;
-             box-sizing: border-box;
-             text-align: left;
-             color: #666;
-             border-bottom: 1px solid #f6f6f6;
-        }
+    }
+    .content-item{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 24px;
+            box-sizing: border-box;
+            text-align: left;
+            color: #666;
+            border-bottom: 1px solid #f6f6f6;
     }
     
 </style>
