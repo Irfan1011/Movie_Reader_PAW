@@ -1,6 +1,6 @@
 <template>
-    <v-img src="./../../assets/login_back.png" dark aspect-ratio="2.175">
-        <v-container fluid fill-height class="posisinya bg-img">
+    <v-main class="bg-img">
+        <v-container fluid fill-height class="posisinya">
             <v-layout flex align-center justify-center >
                 <v-flex xs12 sm6 elevation-6>
                     <v-toolbar class="green lighten-2">
@@ -29,20 +29,27 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </v-img>
+    </v-main>
 </template>
 
 <style>
     .posisinya{
         position: absolute;
-        top: 20px;
         left: 0;
         right: 0;
     }
+    #app{
+        margin-top: 0 !important;
+    }
     .bg-img{
-        background-image: url('./../../assets/login_back.png') no-repeat center center fixed !important;
-        background-size: cover !important;
-        height:100vh;
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url('../../assets/login_back.png');
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 </style>
 

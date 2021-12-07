@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <v-main class="bg-img">
         <v-container fluid fill-height class="posisinya">
             <v-layout flex align-center justify-center>
                 <v-flex xs12 sm6 elevation-6>
@@ -35,29 +35,28 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </main>
+    </v-main>
 </template>
 
 <style>
 
     .posisinya{
         position: absolute;
-        top: 20px;
         left: 0;
         right: 0;
     }
-    .content{
-        background: #032859;
+    #app{
+        margin-top: 0 !important;
     }
-    .content-item{
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            font-size: 24px;
-            box-sizing: border-box;
-            text-align: left;
-            color: #666;
-            border-bottom: 1px solid #f6f6f6;
+    .bg-img{
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url('../../assets/login_back.png');
+        background-size: cover;
+        background-repeat: no-repeat;
     }
     
 </style>
