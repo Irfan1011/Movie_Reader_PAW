@@ -10,7 +10,7 @@
                 <v-row dense>
  
                     <v-col
-                    v-for="(item, i) in courses"
+                    v-for="(item, i) in articles"
                     :key="i"
                     cols="12"
                     >
@@ -21,11 +21,11 @@
                         <div>
                             <v-card-title
                             class="text-h5"
-                            v-text="item.nama_kelas"
+                            v-text="item.title"
                             ></v-card-title>
  
                             <v-card-subtitle class="text-left">
-                                {{ item.kode }}
+                                {{ item.author }}
                             </v-card-subtitle>
  
                             <v-card-actions>
@@ -68,38 +68,38 @@ export default {
             error_message: '',
             color: '',
             search: null,
-            dialog: false,
-            dialogConfirm: false,
-            headers: [
-                {
-                    text: "Nama Kelas",
-                    align: "start",
-                    sortable: true,
-                    value: "nama_kelas"
-                },
-                {
-                    text: "Kode", value: "kode"
-                },
-                {
-                    text: "Biaya Pendaftaran", value: "biaya_pendaftaran"
-                },
-                {
-                    text: "Kapasitas", value: "kapasitas"
-                },
-                {
-                    text: "Actions", value: "actions"
-                },
-            ],
-            course: new FormData,
-            courses: [],
-            form: {
-                nama_kelas: null,
-                kode: null,
-                biaya_pendaftaran: null,
-                kapasitas: null,
-            },
-            deleteId: '',
-            editId: '',
+            article: new FormData,
+            articles: [],
+            // dialog: false,
+            // dialogConfirm: false,
+            // headers: [
+            //     {
+            //         text: "Nama Kelas",
+            //         align: "start",
+            //         sortable: true,
+            //         value: "nama_kelas"
+            //     },
+            //     {
+            //         text: "Kode", value: "kode"
+            //     },
+            //     {
+            //         text: "Biaya Pendaftaran", value: "biaya_pendaftaran"
+            //     },
+            //     {
+            //         text: "Kapasitas", value: "kapasitas"
+            //     },
+            //     {
+            //         text: "Actions", value: "actions"
+            //     },
+            // ],
+            // form: {
+            //     nama_kelas: null,
+            //     kode: null,
+            //     biaya_pendaftaran: null,
+            //     kapasitas: null,
+            // },
+            // deleteId: '',
+            // editId: '',
         };
     },
     methods: {
@@ -112,137 +112,137 @@ export default {
         },
         // Read data
         readData() {
-            var url = this.$api + '/course';
+            var url = this.$api + '/article';
             this.$http.get(url, {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('token'),
                 }
             }).then(response => {
-                this.courses = response.data.data;
+                this.articles = response.data.data;
             });
         },
-        // Simpan data course
-        save() {
-            this.course.append('nama_kelas', this.form.nama_kelas);
-            this.course.append('kode', this.form.kode);
-            this.course.append('biaya_pendaftaran', this.form.biaya_pendaftaran);
-            this.course.append('kapasitas', this.form.kapasitas);
+        // // Simpan data course
+        // save() {
+        //     this.course.append('nama_kelas', this.form.nama_kelas);
+        //     this.course.append('kode', this.form.kode);
+        //     this.course.append('biaya_pendaftaran', this.form.biaya_pendaftaran);
+        //     this.course.append('kapasitas', this.form.kapasitas);
 
-            var url = this.$api + '/course/';
-            this.load = true;
-            this.$http.post(url, this.course, {
-                headers: {
-                    'Authorization' : 'Bearer ' + localStorage.getItem('token'),
-                }
-            }).then(response => {
-                this.error_message = response.data.message;
-                this.color = "green";
-                this.snackbar = true;
-                this.load = true;
-                this.close();
-                this.readData();
-                this.resetForm();
-            }).catch(error => {
-                this.error_message = error.response.data.message;
-                this.color = "red";
-                this.snackbar = true;
-                this.load = false;
-            });
-        },
+        //     var url = this.$api + '/course/';
+        //     this.load = true;
+        //     this.$http.post(url, this.course, {
+        //         headers: {
+        //             'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+        //         }
+        //     }).then(response => {
+        //         this.error_message = response.data.message;
+        //         this.color = "green";
+        //         this.snackbar = true;
+        //         this.load = true;
+        //         this.close();
+        //         this.readData();
+        //         this.resetForm();
+        //     }).catch(error => {
+        //         this.error_message = error.response.data.message;
+        //         this.color = "red";
+        //         this.snackbar = true;
+        //         this.load = false;
+        //     });
+        // },
 
-        update() {
-            let newData = {
-                nama_kelas: this.form.nama_kelas,
-                kode: this.form.kode,
-                biaya_pendaftaran: this.form.biaya_pendaftaran,
-                kapasitas: this.form.kapasitas
-            };
+        // update() {
+        //     let newData = {
+        //         nama_kelas: this.form.nama_kelas,
+        //         kode: this.form.kode,
+        //         biaya_pendaftaran: this.form.biaya_pendaftaran,
+        //         kapasitas: this.form.kapasitas
+        //     };
 
-            var url = this.$api + '/course/' + this.editId;
-            this.load = true;
-            this.$http.put(url, newData, {
-                headers: {
-                    'Authorization' : 'Bearer ' + localStorage.getItem('token'),
-                }
-            }).then(response => {
-                this.error_message = response.data.message;
-                this.color = "green";
-                this.snackbar = true;
-                this.load = true;
-                this.close();
-                this.readData();
-                this.resetForm();
-                this.inputType = 'Tambah';
-            }).catch(error => {
-                this.error_message = error.response.data.message;
-                this.color = "red";
-                this.snackbar = true;
-                this.load = false;
-            });
-        },
+        //     var url = this.$api + '/course/' + this.editId;
+        //     this.load = true;
+        //     this.$http.put(url, newData, {
+        //         headers: {
+        //             'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+        //         }
+        //     }).then(response => {
+        //         this.error_message = response.data.message;
+        //         this.color = "green";
+        //         this.snackbar = true;
+        //         this.load = true;
+        //         this.close();
+        //         this.readData();
+        //         this.resetForm();
+        //         this.inputType = 'Tambah';
+        //     }).catch(error => {
+        //         this.error_message = error.response.data.message;
+        //         this.color = "red";
+        //         this.snackbar = true;
+        //         this.load = false;
+        //     });
+        // },
 
-        deleteData() {
-            var url = this.$api + '/course/' + this.deleteId;
-            this.load = true;
-            this.$http.delete(url, {
-                headers: {
-                    'Authorization' : 'Bearer ' + localStorage.getItem('token'),
-                }
-            }).then(response => {
-                this.error_message = response.data.message;
-                this.color = "green";
-                this.snackbar = true;
-                this.load = true;
-                this.close();
-                this.readData();
-                this.resetForm();
-                this.inputType = 'Tambah';
-            }).catch(error => {
-                this.error_message = error.response.data.message;
-                this.color = "red";
-                this.snackbar = true;
-                this.load = false;
-            });
-        },
+        // deleteData() {
+        //     var url = this.$api + '/course/' + this.deleteId;
+        //     this.load = true;
+        //     this.$http.delete(url, {
+        //         headers: {
+        //             'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+        //         }
+        //     }).then(response => {
+        //         this.error_message = response.data.message;
+        //         this.color = "green";
+        //         this.snackbar = true;
+        //         this.load = true;
+        //         this.close();
+        //         this.readData();
+        //         this.resetForm();
+        //         this.inputType = 'Tambah';
+        //     }).catch(error => {
+        //         this.error_message = error.response.data.message;
+        //         this.color = "red";
+        //         this.snackbar = true;
+        //         this.load = false;
+        //     });
+        // },
 
-        editHandler(item) {
-            this.inputType = 'Ubah';
-            this.editId = item.id;
-            this.form.nama_kelas = item.nama_kelas;
-            this.form.kode = item.kode;
-            this.form.biaya_pendaftaran = item.biaya_pendaftaran;
-            this.form.kapasitas = item.kapasitas;
-            this.dialog = true;
-        },
+        // editHandler(item) {
+        //     this.inputType = 'Ubah';
+        //     this.editId = item.id;
+        //     this.form.nama_kelas = item.nama_kelas;
+        //     this.form.kode = item.kode;
+        //     this.form.biaya_pendaftaran = item.biaya_pendaftaran;
+        //     this.form.kapasitas = item.kapasitas;
+        //     this.dialog = true;
+        // },
 
-        deleteHandler(id) {
-            this.deleteId = id;
-            this.dialogConfirm = true;
-        },
+        // deleteHandler(id) {
+        //     this.deleteId = id;
+        //     this.dialogConfirm = true;
+        // },
 
-        close() {
-            this.dialog = false;
-            this.inputType = 'Tambah';
-            this.dialogConfirm = false;
-            this.readData();
-        },
+        // close() {
+        //     this.dialog = false;
+        //     this.inputType = 'Tambah';
+        //     this.dialogConfirm = false;
+        //     this.readData();
+        // },
 
-        cancel() {
-            this.resetForm();
-            this.readData();
-            this.dialog = false;
-            this.dialogConfirm = false;
-            this.inputType = 'Tambah';
-        },
+        // cancel() {
+        //     this.resetForm();
+        //     this.readData();
+        //     this.dialog = false;
+        //     this.dialogConfirm = false;
+        //     this.inputType = 'Tambah';
+        // },
 
-        resetForm() {
-            this.form = {
-                nama_kelas: null,
-                kode: null,
-                biaya_pendaftaran: null,
-                kapasitas: null,
-            };
-        },
+        // resetForm() {
+        //     this.form = {
+        //         nama_kelas: null,
+        //         kode: null,
+        //         biaya_pendaftaran: null,
+        //         kapasitas: null,
+        //     };
+        // },
     },
     computed: {
         formTitle() {
