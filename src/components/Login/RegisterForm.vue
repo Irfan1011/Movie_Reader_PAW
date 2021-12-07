@@ -46,6 +46,20 @@
         left: 0;
         right: 0;
     }
+    .content{
+        background: #032859;
+        .content-item{
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+             font-size: px2rem(24);
+             box-sizing: border-box;
+             text-align: left;
+             color: #666;
+             border-bottom: 1px solid #f6f6f6;
+        
+    }
+    
 </style>
 
 <script>
