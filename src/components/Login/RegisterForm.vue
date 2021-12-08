@@ -16,7 +16,7 @@
                                         <v-text-field v-model="last_name" label="Last Name" maxlength="50" required></v-text-field>
                                         <v-text-field v-model="img_url" label="Image Url" required></v-text-field>                                    
                                         <v-text-field v-model="phone_number" label="Phone number" required></v-text-field>
-                                        <v-text-field v-model="gender" label="Gender" required></v-text-field>
+                                        <v-select v-model="gender" label="Gender" :items="items" required></v-select>
                                         <v-text-field v-model="username" label="Username" required></v-text-field>
                                         <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
                                         <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[min=8]" :type="show1? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>                                    
@@ -82,7 +82,8 @@ export default {
             name: '',
             nameRules: [
                 (v) => !!v || 'Nama tidak boleh kosong :(',
-            ]
+            ],
+            items: ["Pria", "Wanita"],
         };
     },
     methods: {
