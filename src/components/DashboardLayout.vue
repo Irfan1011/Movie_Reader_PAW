@@ -15,9 +15,13 @@
                     link
                     tag="router-link"
                     :to="item.to"
+                    class="text-left"
                 >
+                    <v-list-item-icon>
+                        <v-icon v-text="item.icon"></v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        <v-list-item-title v-text="item.title"></v-list-item-title>
                     </v-list-item-content>
 
                 </v-list-item>
@@ -47,8 +51,8 @@ export default {
         return {
             drawer: true,
             items: [
-                {title: "Home", to: "/home"},
-                {title: "Create Article", to: "/article/create"},
+                {title: "Home", to: "/home", icon: 'mdi-home'},
+                {title: "Create Article", to: "/article/create", icon: 'mdi-plus-thick'},
             ],
         };
     },
