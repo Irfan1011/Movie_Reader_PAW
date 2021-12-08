@@ -29,7 +29,8 @@
             <VSpacer />
             <v-toolbar-items>
                 <!-- Tombol Logout -->
-                <v-btn text router @click="logout"><v-icon>mdi-power</v-icon> Logout </v-btn> 
+                <v-btn text router @click="showProfile" class="mr-5"><v-icon color="blue">mdi-account</v-icon> Profile </v-btn> 
+                <v-btn text router @click="logout"><v-icon color="red">mdi-power</v-icon> Logout </v-btn> 
             </v-toolbar-items>
         </v-app-bar>
 
@@ -46,7 +47,6 @@ export default {
         return {
             drawer: true,
             items: [
-                {title: "Profile", to: "/profileLayout"},
                 {title: "Home", to: "/home"},
                 {title: "Create Article", to: "/article/create"},
             ],
@@ -79,8 +79,14 @@ export default {
                     name: 'Dashboard',
                 });
             })
-    },
-  }
+        },
+
+        showProfile() {
+            this.$router.push({
+                name: 'Profile',
+            });
+        }
+    }
 };
 </script>
 
