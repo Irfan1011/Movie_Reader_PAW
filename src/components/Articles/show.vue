@@ -13,9 +13,7 @@
         <div class="black--text text-left mt-10 ml-15">
             <h3 class="text-h3 font-weight-bold mb-1">{{articles.title}}</h3>
             <h2 class="text-h6 font-weight-light mb-5">Written by: {{articles.author}}</h2>
-            <p class="text-h5 font-weight-light mt-3 text-justify mr-15">
-                {{articles.body}}
-            </p>
+            <p class="text-h5 font-weight-light mt-3 text-justify mr-15" style="white-space: pre-line; white-space: pre-wrap;">{{articles.body}}</p>
         </div>
         <div class="mt-15">
             <v-btn class="green white--text" lazy @click="$router.go(-1)">Return</v-btn>
